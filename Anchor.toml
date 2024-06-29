@@ -4,15 +4,21 @@
 resolution = true
 skip-lint = false
 
+[programs.devnet]
+solana_trade_router = "7MBTsqiPjHHt5Xmaq8jjTq93r5msdVy8rxEdyGgAnV3v"
+
 [programs.localnet]
-solana_trade_router = "Awjrxd8FQnGPYzHqTAJh7Af3NV5vxCkKiYt4PttMb5oy"
+solana_trade_router = "7MBTsqiPjHHt5Xmaq8jjTq93r5msdVy8rxEdyGgAnV3v"
 
 [registry]
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "Localnet"
+cluster = "localnet"
 wallet = "~/.config/solana/id.json"
+
+[clusters]
+localnet = "http://127.0.0.1:8898"
 
 [scripts]
 test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts"
