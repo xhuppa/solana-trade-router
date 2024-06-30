@@ -1,6 +1,10 @@
+extern crate jemallocator;
+
 use anchor_lang::prelude::*;
 use serum_dex::state::Market;
 
+#[global_allocator]
+static GLOBAL: jemallocator::Jemalloc = jemallocator::Jemalloc;
 declare_id!("7MBTsqiPjHHt5Xmaq8jjTq93r5msdVy8rxEdyGgAnV3v");
 
 #[program]
