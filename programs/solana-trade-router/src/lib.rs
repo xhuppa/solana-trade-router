@@ -1,8 +1,7 @@
-extern crate jemallocator;
-
 use anchor_lang::prelude::*;
 use serum_dex::state::Market;
 
+#[cfg(not(feature = "no_jemalloc"))]
 #[global_allocator]
 static GLOBAL: jemallocator::Jemalloc = jemallocator::Jemalloc;
 declare_id!("7MBTsqiPjHHt5Xmaq8jjTq93r5msdVy8rxEdyGgAnV3v");
@@ -12,14 +11,18 @@ pub mod solana_trade_router {
     use super::*;
 
     pub fn initialize(ctx: Context<Initialize>) -> Result<()> {
+        msg!("Initializing Solana Trade Router program...");
         msg!("Greetings from: {:?}", ctx.program_id);
         Ok(())
     }
 
     pub fn route_trade(ctx: Context<RouteTrade>) -> Result<()> {
+        msg!("Routing trade...");
+
         let market_account_info = &ctx.accounts.market;
         let program_id = ctx.program_id;
 
+        // Attempt to load the market state
         let market = Market::load(market_account_info, program_id, false).map_err(|e| {
             msg!("Error loading market: {:?}", e);
             ProgramError::Custom(0)
